@@ -1,44 +1,41 @@
 {
-  "name": "user-management",
-  "version": "1.0.0",
-  "description": "User Management Project",
-  "main": "index.js",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://www.opensource.org/licenses/mit-license.php"
-    }
-  ],
-  "scripts": {
-    "tsc": "tsc",
-    "start": "tsc && node build/index.js",
-    "build": "tsc && node build/index.js",
-    "watch": " nodemon -e ts -w ./source -x 'ts-node source/index.ts' ",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Yasser Abuomira <yasser.mas2@gmail.com>",
-  "license": "ISC",
+  "name": "admin-ui",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "bcrypt": "5.0.0",
-    "class-transformer": "^0.3.1",
-    "dotenv": "^7.0.0",
-    "express": "^4.16.4",
-    "joi": "^14.3.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": ">=5.7.5",
-    "nodemailer": "^6.1.0",
-    "reflect-metadata": "^0.1.13"
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.0.1",
+    "lodash": "4.17.21",
+    "prop-types": "15.7.2",
+    "node-sass": "5.0.0"
   },
-  "devDependencies": {
-    "tslint": "^5.15.0",
-    "@types/dotenv": "^6.1.0",
-    "@types/express": "^4.16.1",
-    "@types/bcrypt": "^3.0.0",
-    "@types/joi": "^14.3.2",
-    "@types/jsonwebtoken": "^8.3.2",
-    "@types/mongoose": ">=5.7.5",
-    "@types/node": "^11.12.1",
-    "@types/nodemailer": "^4.6.7"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "keywords": []
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
