@@ -1,0 +1,843 @@
+{
+	"info": {
+		"_postman_id": "7ae99d4b-136b-4d57-a839-bf35bc988fe9",
+		"name": "node-user-management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{user_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/users?limit=100&offset=0&sortBy=username&sortOrder=desc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "100"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "sortBy",
+									"value": "username"
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{user_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/users/5ca8c73febf7982f736f77b3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"5ca8c73febf7982f736f77b3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{user_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/users/5fd4d99f0f86fe44b2fc7d57",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"5fd4d99f0f86fe44b2fc7d57"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1fe822d6-71d7-4d31-b307-83fbd9c5faff",
+								"exec": [
+									"",
+									"function makeid() {",
+									"  var text = \"\";",
+									"  var possible = \"abcdefghijklmnopqrstuvwxyz\";",
+									"",
+									"  for (var i = 0; i < 5; i++)",
+									"    text += possible.charAt(Math.floor(Math.random() * possible.length));",
+									"",
+									"  return text;",
+									"}",
+									"",
+									"pm.variables.set(\"newUsername\", 'auto_' + makeid());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{user_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\":\"{{newUsername}}\",\n  \"email\":\"test@as.s\",\n  \"displayName\":\"super user\",\n  \"type\":\"user type\",\n  \"isSuperUser\":false,\n  \"groups\": [],\n  \"password\":\"{{newUsername}}\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{user_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"_id\": \"5fd4dac5bb83634665def281\",\n    \"displayName\": \"NEwUsERnAme\",\n    \"email\": \"super@sad.asd\",\n    \"type\": \"user \",\n    \"isSuperUser\": true,\n    \"groups\": []\n}"
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{user_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"_id\":\"5ca8c73febf7982f736f77b3\",\n  \"oldPassword\":\"auto_ixeds\",\n  \"newPassword\":\"auto_ixeds\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/users/change-own-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"change-own-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Own Info",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Basic {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"_id\":\"5ca8c73febf7982f736f77b3\",\n  \"displayName\":\"super Test\",\n  \"email\":\"super@asd.sad\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/users/change-own-info",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"change-own-info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Get all groups",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Basic {{user_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/groups?limit=2&offset=0&sortBy=username&sortOrder=desc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"groups"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "sortBy",
+									"value": "username"
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Group By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{user_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/groups/5ca8d337ebf7982f736f77c1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"groups",
+								"5ca8d337ebf7982f736f77c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Group",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1fe822d6-71d7-4d31-b307-83fbd9c5faff",
+								"exec": [
+									"",
+									"function makeid() {",
+									"  var text = \"\";",
+									"  var possible = \"abcdefghijklmnopqrstuvwxyz\";",
+									"",
+									"  for (var i = 0; i < 5; i++)",
+									"    text += possible.charAt(Math.floor(Math.random() * possible.length));",
+									"",
+									"  return text;",
+									"}",
+									"",
+									"pm.variables.set(\"newGroupName\", 'auto_' + makeid());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Basic {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{newGroupName}}\",\n  \"permissions\": [\"5caa8f44ebf7980b7bd9051b\"]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/groups",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Group By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Basic {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/groups/5fd54fbdeac59674aa68b979",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"groups",
+								"5fd54fbdeac59674aa68b979"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Group",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b33880c1-cfeb-45fd-ab30-cb57881b641f",
+								"exec": [
+									"",
+									"function makeid() {",
+									"  var text = \"\";",
+									"  var possible = \"abcdefghijklmnopqrstuvwxyz\";",
+									"",
+									"  for (var i = 0; i < 5; i++)",
+									"    text += possible.charAt(Math.floor(Math.random() * possible.length));",
+									"",
+									"  return text;",
+									"}",
+									"",
+									"pm.variables.set(\"newGroupName\", 'auto_' + makeid());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Basic {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"_id\": \"5fd50dfbc1d33b56af4dc817\",\n    \"name\": \"{{newGroupName}}\",\n    \"permissions\":[\"5ca8d2ecebf7982f736f77bc\", \n        \"5ca924a1ebf798085daea400\", \n        \"5ca92782ebf798085daea407\", \n        \"5ca9386febf798085daea40d\", \n        \"5ca93c2aebf798085daea42b\", \n        \"5caa8692ebf7980b7bd90515\", \n        \"5caa8f44ebf7980b7bd9051b\", \n        \"5caa9072ebf7980b7bd9051c\", \n        \"5caa90faebf7980b7bd9051d\", \n        \"5caa9283ebf7980b7bd90528\", \n        \"5caa92f7ebf7980b7bd90532\"]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/groups",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"groups"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "67473bf6-617d-4078-930b-f77ac8861c5c",
+								"exec": [
+									"let jsonData = pm.response.json();",
+									"",
+									"",
+									"",
+									"pm.environment.set('user_token', _.get(jsonData,'object.accessToken'));",
+									"pm.environment.set('user_refresh_token', _.get(jsonData,'object.refreshToken'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "5ca28f306ffb0401be639daa",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\":\"auto_yasser\",\n  \"password\":\"auto_ixeds\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b42dfe2-b31d-475f-a528-90d580ae7c7b",
+								"exec": [
+									"let jsonData = pm.response.json();",
+									"",
+									"",
+									"// console.log(_.get(jsonData,'object.tokenObj.token'));",
+									"",
+									"pm.globals.set('user_token', _.get(jsonData,'object.accessToken'));",
+									"pm.globals.set('user_refresh_token', _.get(jsonData,'object.refreshToken'));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "89250004-22ab-4422-b61f-4b3a6eb8f0a8",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"type": "text",
+								"value": "5ca28f306ffb0401be639daa",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\":\"{{user_refresh_token}}\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/auth/refresh-token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b5abb8d5-c7f5-4bda-afa3-4f7817112125",
+								"exec": [
+									"let jsonData = pm.response.json();",
+									"",
+									"",
+									"",
+									"pm.environment.set('user_id', _.get(jsonData,'object._id'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Basic {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/auth/get-user-by-token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"get-user-by-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login As",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Basic {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/auth/login-as/{{user_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login-as",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "authorization",
+								"value": "Basic {{user_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"auto_sjvfz\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/auth/generate-reset-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"generate-reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password by reset token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"newPassword\": \"asdasdsa\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/auth/change-password-by-token/5fd513558de0345bbc9e877b",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"change-password-by-token",
+								"5fd513558de0345bbc9e877b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Permissions",
+			"item": [
+				{
+					"name": "Get All Permissions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{user_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/permissions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Home Page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0425392f-ddb8-4ac9-a539-6c55a3e6fff4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7c947e34-276b-4412-bfed-cd578893ef60",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "c490d204-b671-42f2-9f4b-ba2764886e3c",
+			"key": "url",
+			"value": "localhost:8082",
+			"type": "string"
+		}
+	]
+}
