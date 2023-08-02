@@ -15,8 +15,8 @@ export class GroupController {
     let responseBody: HTTPErrorResponse | HTTPSuccessResponse;
 
     try {
-      const allGroups = GroupsModel.getAllGroups(body);
-      const count = GroupsModel.countGroups(body);
+      const allGroups = await GroupsModel.getAllGroups(body);
+      const count = await GroupsModel.countGroups(body);
       responseBody = new HTTPSuccessResponse({ list: await allGroups, count: await count });
 
     } catch (error) {
